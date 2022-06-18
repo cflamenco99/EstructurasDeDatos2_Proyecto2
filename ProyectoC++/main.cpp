@@ -3,27 +3,27 @@
 #include <iostream>
 using namespace std;
 
-class TreeNode {
+class NodoArbol {
   int *keys;
   int t;
-  TreeNode **C;
+  NodoArbol **C;
   int n;
   bool leaf;
 
    public:
-  TreeNode(int temp, bool bool_leaf);
+  NodoArbol(int temp, bool bool_leaf);
 
   void insertNonFull(int k);
   void splitChild(int i, TreeNode *y);
   void traverse();
 
-  TreeNode *search(int k);
+  NodoArbol *search(int k);
 
   friend class BTree;
 };
 
 class BTree {
-  TreeNode *root;
+  NodoArbol *root;
   int t;
 
    public:
@@ -37,24 +37,24 @@ class BTree {
       root->traverse();
   }
 
-  TreeNode *search(int k) {
+  NodoArbol *search(int k) {
     return (root == NULL) ? NULL : root->search(k);
   }
 
   void insert(int k);
 };
 
-TreeNode::TreeNode(int t1, bool leaf1) {
+NodoArbol::NodoArbol(int t1, bool leaf1) {
   t = t1;
   leaf = leaf1;
 
   keys = new int[2 * t - 1];
-  C = new TreeNode *[2 * t];
+  C = new NodoArbol *[2 * t];
 
   n = 0;
 }
 
-void TreeNode::traverse() {
+void NodoArbol::traverse() {
   int i;
   for (i = 0; i < n; i++) {
     if (leaf == false)
@@ -66,7 +66,7 @@ void TreeNode::traverse() {
     C[i]->traverse();
 }
 
-TreeNode *TreeNode::search(int k) {
+NodoArbol *NodoArbol::search(int k) {
   int i = 0;
   while (i < n && k > keys[i])
     i++;
@@ -82,12 +82,12 @@ TreeNode *TreeNode::search(int k) {
 
 void BTree::insert(int k) {
   if (root == NULL) {
-    root = new TreeNode(t, true);
+    root = new NodoArbol(t, true);
     root->keys[0] = k;
     root->n = 1;
   } else {
     if (root->n == 2 * t - 1) {
-      TreeNode *s = new TreeNode(t, false);
+      NodoArbol *s = new NodoArbol(t, false);
 
       s->C[0] = root;
 
@@ -104,7 +104,7 @@ void BTree::insert(int k) {
   }
 }
 
-void TreeNode::insertNonFull(int k) {
+void NodoArbol::insertNonFull(int k) {
   int i = n - 1;
 
   if (leaf == true) {
@@ -129,8 +129,8 @@ void TreeNode::insertNonFull(int k) {
   }
 }
 
-void TreeNode::splitChild(int i, TreeNode *y) {
-  TreeNode *z = new TreeNode(y->t, y->leaf);
+void NodoArbol::splitChild(int i, NodoArbol *y) {
+  NodoArbol *z = new NodoArbol(y->t, y->leaf);
   z->n = t - 1;
 
   for (int j = 0; j < t - 1; j++)
