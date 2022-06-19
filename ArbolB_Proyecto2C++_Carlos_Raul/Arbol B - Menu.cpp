@@ -80,7 +80,7 @@ int main(){
 					break;
 				case 9:
 					cout<<"\tESTADISTICAS"<<endl<<endl;
-					
+					A.pintarEstadisticas();
 					cout<<endl<<endl;
 					system("pause");
 					break;

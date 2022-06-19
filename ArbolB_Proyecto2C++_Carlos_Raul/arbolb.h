@@ -54,6 +54,11 @@ public:
 	bool agregarArchivo();//agregar numeros al arbol b por archivo
 	bool guardarArchivo();//guardar los numeros ordenados en un archivo
 	bool borrarArchivo();//borrar los numeros ordenados en un archivo
+	void pintarEstadisticas();//muestra las estadisticas del arbol actual creado
+	int obtenerPaginasExistentes();//funcion que obtiene el total de paginas existentes
+	int alturaArbol();//Obtiene la altura del arbol
+	int paginasMasLlaves();//funcion que calcula la pagina con mas llaves
+	int paginasMenosLlaves();//funcion que calcula la pagina con menos llaves
 };
 
 /* contructor del arbol b, tiene como paramtro el 'orden' del arbol*/
@@ -681,8 +686,7 @@ void ArbolB::pintarArbol(){
 		cout<<endl<<endl;
 		p = p->siguiente;
 		//p = p->anterior;
-	}
-	
+	}	
 }
 /* funcion que pinta el valor de cada casilla del arbol b*/
 void ArbolB::pintar(){
@@ -783,5 +787,146 @@ bool ArbolB::borrarArchivo(){
     archivo.close();
     return true;
 }
+/* funcion que muestra estadisticas del arbol b */
+void ArbolB::pintarEstadisticas(){
+	cout<<"\t>> ESTADISTICAS DE ARBOL B <<"<<endl<<endl;
+	//a
+	cout<<"a. Claves actuales en el arbol: "<<cuantos<<endl<<endl;
+	
+	//b
+	cout<<"b. Paginas existentes: "<<obtenerPaginasExistentes()<<endl<<endl;
+	
+	//c
+	cout<<"c. Altura del arbol: "<<alturaArbol()<<endl<<endl;
+	
+	//d
+	cout<<"d. Pagina con mas llaves: "<< paginasMasLlaves() <<" llaves"<<endl<<endl;
+	
+	//e
+	cout<<"e. Pagina con menos llaves: "<<"Pagina raiz con "<<paginasMenosLlaves()<<" llaves"<<endl<<endl;
+	
+	//f
+	cout<<"f. Pagina con mas hijos: "<<endl<<endl;
+	
+	//g	
+	cout<<"g. Pagina con menos hijos: "<<endl<<endl;
+}
+
+/* funcion que obtiene las paginas existentes en el arbol*/
+int ArbolB::obtenerPaginasExistentes(){
+	Casilla2 *p;
+	p=principio;
+	int contadorPaginas = 0;
+	//p=final;
+	if(!p)cout<<"No se encuentra ningun numero en el arbol!"<<endl;	
+	while(p){
+		contadorPaginas++;
+		p = p->siguiente;		
+	}
+	return contadorPaginas;
+}
+
+/* funcion que calcula la altura del arbol*/
+int ArbolB::alturaArbol(){
+	Casilla2 *p;
+	p=principio;
+	int contadorIzquierda = 0;
+	int contadorDerecha= 0;
+	
+	if(!p)cout<<"No se encuentra ningun numero en el arbol!"<<endl;	
+	while(p){
+		if( p->direccionArbol->hizq ){
+			contadorIzquierda++;
+		}
+		
+		if( p->direccionArbol->hder ){
+			contadorDerecha++;
+		}
+		p = p->siguiente;
+	}
+	if(contadorIzquierda >= contadorDerecha){
+		return contadorIzquierda;
+	} else{
+		return contadorDerecha;
+	}
+}
+
+/* funcion que calcula la pagina con mas llaves*/
+int ArbolB::paginasMasLlaves(){
+	Casilla2 *p;
+	p=principio;
+	int maximoLlavesRegistrado = 0;
+	int cantidadActualEnPagina = 0;
+	if(!p)cout<<"No se encuentra ningun numero en el arbol!"<<endl;	
+	while(p){
+		cantidadActualEnPagina = p->direccionArbol->actual->obtenerCuantos();
+		if(cantidadActualEnPagina > maximoLlavesRegistrado){
+			maximoLlavesRegistrado = cantidadActualEnPagina;
+		}		
+		p = p->siguiente;
+	}	
+	return maximoLlavesRegistrado;
+}
+
+/* funcion que calcula la pagina con menos llaves*/
+int ArbolB::paginasMenosLlaves(){
+	Casilla2 *p;
+	p=principio;
+	int minimoLlavesRegistrado = 1;
+	int cantidadActualEnPagina = 0;
+	if(!p)cout<<"No se encuentra ningun numero en el arbol!"<<endl;	
+	while(p){
+		cantidadActualEnPagina = p->direccionArbol->actual->obtenerCuantos();
+		if(cantidadActualEnPagina < minimoLlavesRegistrado){
+			minimoLlavesRegistrado = cantidadActualEnPagina;
+		}		
+		p = p->siguiente;
+	}	
+	return minimoLlavesRegistrado;
+}
 //------------------------------------------------------
 //------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
