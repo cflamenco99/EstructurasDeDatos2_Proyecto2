@@ -59,6 +59,8 @@ public:
 	int alturaArbol();//Obtiene la altura del arbol
 	int paginasMasLlaves();//funcion que calcula la pagina con mas llaves
 	int paginasMenosLlaves();//funcion que calcula la pagina con menos llaves
+	int paginaMasHijos();//funcion que encuentra la maxima cantidad de hijos en paginas
+	int paginaMenosHijos();//funcion que encuentra la minima cantidad de hijos en paginas
 };
 
 /* contructor del arbol b, tiene como paramtro el 'orden' del arbol*/
@@ -806,10 +808,10 @@ void ArbolB::pintarEstadisticas(){
 	cout<<"e. Pagina con menos llaves: "<<"Pagina raiz con "<<paginasMenosLlaves()<<" llaves"<<endl<<endl;
 	
 	//f
-	cout<<"f. Pagina con mas hijos: "<<endl<<endl;
+	cout<<"f. Pagina con mas hijos: "<< paginaMasHijos()<<" hijos"<<endl<<endl;
 	
 	//g	
-	cout<<"g. Pagina con menos hijos: "<<endl<<endl;
+	cout<<"g. Pagina con menos hijos: "<< paginaMenosHijos()<<" hijos"<<endl<<endl;
 }
 
 /* funcion que obtiene las paginas existentes en el arbol*/
@@ -883,6 +885,60 @@ int ArbolB::paginasMenosLlaves(){
 		p = p->siguiente;
 	}	
 	return minimoLlavesRegistrado;
+}
+
+/* funcion que encuentra la maxima cantidad de hijos en paginas*/
+int ArbolB::paginaMasHijos(){
+	Casilla2 *p;
+	p=principio;
+	int contadorMaximoHijosEncontrados = 0;
+	int hijosActuales = 0;
+	if(!p)cout<<"No se encuentra ningun numero en el arbol!"<<endl;	
+	while(p){
+		hijosActuales = 0;
+		
+		if( p->direccionArbol->hizq ){
+			hijosActuales++;
+		}
+		
+		if( p->direccionArbol->hder ){
+			hijosActuales++;
+		}
+		
+		if(hijosActuales > contadorMaximoHijosEncontrados){
+			contadorMaximoHijosEncontrados = hijosActuales;
+		}
+		
+		p = p->siguiente;
+	}
+	return contadorMaximoHijosEncontrados;	
+}
+
+/* funcion que encuentra la minima cantidad de hijos en paginas*/
+int ArbolB::paginaMenosHijos(){
+	Casilla2 *p;
+	p=principio;
+	int contadorMinimoHijosEncontrados = 1;
+	int hijosActuales = 1;
+	if(!p)cout<<"No se encuentra ningun numero en el arbol!"<<endl;	
+	while(p){
+		hijosActuales = 1;
+		
+		if( p->direccionArbol->hizq ){
+			hijosActuales++;
+		}
+		
+		if( p->direccionArbol->hder ){
+			hijosActuales++;
+		}
+		
+		if(hijosActuales < contadorMinimoHijosEncontrados){
+			contadorMinimoHijosEncontrados = hijosActuales;
+		}
+		
+		p = p->siguiente;
+	}
+	return contadorMinimoHijosEncontrados;	
 }
 //------------------------------------------------------
 //------------------------------------------------------
