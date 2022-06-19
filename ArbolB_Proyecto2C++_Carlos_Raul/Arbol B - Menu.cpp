@@ -9,8 +9,6 @@ int menu();
 void animarReinicio();
 //-------------------------------------------------------
 int main(){
-
-
 	int eleccion;//para usar en el menu
 	int orden;
 	int numero;//para agregar
@@ -79,23 +77,37 @@ int main(){
 					animarReinicio();
 					cout<<endl<<endl;
 					system("pause");
-					break;	
+					break;
 				case 9:
+					cout<<"\tESTADISTICAS"<<endl<<endl;
+					
+					cout<<endl<<endl;
+					system("pause");
+					break;
+				case 10:
+					cout<<"\tBUSCAR NUMERO"<<endl<<endl;
+					cout<<"Numero a buscar: "; cin>>numero;
+					//ponerle a la de buscar que sea bool para poder usar esto
+					if( A.buscarPintar(numero) ) cout<<"Numero "<<numero<<" encontrado!";
+					else cout<<"Numero no encontrado...";
+					cout<<endl<<endl;
+					system("pause");
+					break;
+				case 11:
 					cout<<endl<<endl;
 					cout<<endl<<endl<<endl;
-					cout<<"\t\t-CREADO POR:"<<endl<<endl;
+					cout<<"\t\t-CREADO POR: Carlos y Raul"<<endl<<endl;
 					
 					//cout<<"Presiona una tecla para continuar...";
 					system("pause");
 			}
-		}while(eleccion!=9 && eleccion!=8);
-	}while(eleccion!=9);
+		}while(eleccion!=11 && eleccion!=8);
+	}while(eleccion!=11);
 
 	return 0;
 }
 //*****************************************
 int menu(){
-	
 	int eleccion;
 	do{
 		system("cls");
@@ -108,13 +120,15 @@ int menu(){
 	    cout<<" 6. BORRAR NUMEROS POR ARCHIVO."<<endl;
 	    cout<<" 7. GUARDAR NUMEROS ORDENADOS EN ARCHIVO."<<endl;
 	    cout<<" 8. REINICIAR PROGRAMA."<<endl;
-		cout<<" 9. SALIR."<<endl<<endl;
+	    cout<<" 9. ESTADISTICAS."<<endl;
+	    cout<<" 10. BUSCAR NUMERO."<<endl;
+		cout<<" 11. SALIR."<<endl<<endl;
 		cout<<"\t>>Ingrese su eleccion: ";
 	    cin>>eleccion;
-	}while(eleccion<1 || eleccion>9);
+	}while(eleccion<1 || eleccion>11);
 	return eleccion;
 }
-//animacion de reinicio XD
+//animacion de reinicio
 void animarReinicio(){
 	cout<<"Reiniciando..."<<endl<<endl;
 	cout<<"\t";

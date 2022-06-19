@@ -374,7 +374,7 @@ void Pagina::pintar(){
 	if(principio){
 		
 		while(p){
-			cout << p -> valor <<" ";
+			cout <<" |"<< p -> valor <<"| ";
 			p = p -> siguiente;
 		}
 	}else{

@@ -1,3 +1,7 @@
+#include <iostream>
+#include <cstdlib>
+#include <fstream>
+#include <windows.h>
 using namespace std;
 
 // enumeraciones
@@ -32,6 +36,7 @@ public:
 	void ponerOrden(int orden);
 	void destructorCopia();//copia dle destructor
 	bool buscar(int); // busca un numero en el arbol b
+	bool buscarPintar(int); // busca un numero en el arbol b y pintar los resultados
 	void agregar(int); // agregar un numero en el arbol b
 	void agregarEnLista(Casilla *);//agrega una casilla en la lista del arbol b
 	void pintarArbol();//Para probar el arbol, ponerlo mas bonito despues
@@ -120,7 +125,7 @@ bool ArbolB::buscar(int a){
 	Pagina *p,*actual; // actual es la pagina donde seguira buscando
 	p = raiz;
 
-	while(p){
+	while(p){		
 		if( actual = p->buscar2(a) ){
 			
 			lugar = p->obtenerLugarEncontrado();
@@ -138,8 +143,43 @@ bool ArbolB::buscar(int a){
 			// la cual se encuentra en una pagina hoja
 			lugarEncontrado = lugar;
 			return false;
-		}	
+		}
+	}
+	
+	lugarEncontrado = NULL;
+	return false;
+}
+/* funcion que buscar un numero 'a' en el arbol b, tiene como parametro el numero 'a' a buscar
+   regresa un booleano dependiendo de si lo encontro o no y va pintando los resultados de busqueda*/
+bool ArbolB::buscarPintar(int a){
+	
+	Casilla *lugar; // lugar en la casilla encontrado
+	Pagina *p,*actual; // actual es la pagina donde seguira buscando
+	p = raiz;
 
+	while(p){
+		cout<<"\tBuscando llave "<<a<<" en pagina con llaves ";
+		p->pintar();
+		cout<<endl<<endl;
+		
+		if( actual = p->buscar2(a) ){
+			
+			lugar = p->obtenerLugarEncontrado();
+			if( !(lugar->actual == actual) ){
+			
+				p = actual;
+			}else{
+				// encontro el numero y guarda la casilla en lugarEncontrado
+				lugarEncontrado = lugar;
+				return true;
+			}						
+	
+		}else if( lugar = p->obtenerLugarEncontrado() ){
+			// no se encontro el numero, guarda la casilla encontrada
+			// la cual se encuentra en una pagina hoja
+			lugarEncontrado = lugar;
+			return false;
+		}
 	}
 	
 	lugarEncontrado = NULL;
@@ -669,7 +709,7 @@ bool ArbolB::agregarArchivo(){
         system("pause");
         return false;
     }
-    archivo>>cantidad;
+    archivo>>cantidad;	
     if(cantidad<1){//checa si la cantidad de numeros a agregar es mayor que 0
     	cout<<"Para poder agregar tienen que ser mas de 0 numeros!"<<endl;
     }else{
