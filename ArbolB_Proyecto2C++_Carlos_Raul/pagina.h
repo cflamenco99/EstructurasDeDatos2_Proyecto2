@@ -125,7 +125,7 @@ Pagina* Pagina::obtenerPadre(){
 void Pagina::ponerPadre(Pagina *padre){
 	this->padre = padre;
 }
-/*  funcion que regresa el principio de la pagina */
+/*  funcion que regresa el incio de la pagina */
 Casilla* Pagina::obtenerPrincipio(){
 	return this->principio;
 }
